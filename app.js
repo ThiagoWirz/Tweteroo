@@ -12,7 +12,11 @@ let tweets = []
 
 app.post("/sign-up", (req, res) =>{
     users.push(req.body);
-    console.log(users)
+    res.send("Ok");
+})
+
+app.post("/tweets", (req, res) =>{
+    tweets.push(req.body);
     res.send("Ok");
 })
 
