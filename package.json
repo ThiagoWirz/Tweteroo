@@ -1,0 +1,25 @@
+{
+  "name": "Projeto_11_Tweteroo",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThiagoWirz/Tweteroo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThiagoWirz/Tweteroo/issues"
+  },
+  "homepage": "https://github.com/ThiagoWirz/Tweteroo#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
