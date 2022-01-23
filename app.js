@@ -53,6 +53,10 @@ app.get("/tweets", (req, res) => {
   res.send(lastTweets);
 });
 
+app.get("/tweets/:USERNAME", (req, res) => {
+  res.send(tweets.filter( userTweets => userTweets.username === req.params.USERNAME))
+})
+
 app.listen(5000, () => {
   console.log("Rodando em http://localhost:5000");
 });
