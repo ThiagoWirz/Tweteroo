@@ -20,7 +20,7 @@ app.post("/sign-up", (req, res) => {
   } else {
     currentUser = req.body;
     users.push(req.body);
-    res.send("Ok");
+    res.status(201).send("Ok");
   }
 });
 
@@ -34,7 +34,7 @@ app.post("/tweets", (req, res) => {
     tweet: req.body.tweet,
   };
   tweets.splice(0, 0, tweet);
-  res.send("Ok");
+  res.status(201).send("Ok");
   }
 });
 
