@@ -16,6 +16,8 @@ app.post("/sign-up", (req, res) => {
     req.body.avatar === ""
   ) {
     res.status(400).send("Todos os campos são obrigatórios!");
+  } else if (users.find((u) => u.username === req.body.username)) {
+    res.status(400).send("Usuário já existe");
   } else {
     users.push(req.body);
     res.status(201).send("Ok");
@@ -23,35 +25,39 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  const tweetUser = req.header("User")
-  if(!tweetUser || tweetUser === "" || !req.body.tweet || req.body.tweet === ""){
+  const tweetUser = req.header("User");
+  if (
+    !tweetUser ||
+    tweetUser === "" ||
+    !req.body.tweet ||
+    req.body.tweet === ""
+  ) {
     res.status(400).send("Todos os campos são obrigatórios!");
-  } else{
-    let tweetAvatar = users.find(u => u.username === tweetUser).avatar
+  } else {
+    let tweetAvatar = users.find((u) => u.username === tweetUser).avatar;
     let tweet = {
-    username: tweetUser,
-    avatar: tweetAvatar,
-    tweet: req.body.tweet,
-  };
-  tweets.splice(0, 0, tweet);
-  res.status(201).send("Ok");
+      username: tweetUser,
+      avatar: tweetAvatar,
+      tweet: req.body.tweet,
+    };
+    tweets.splice(0, 0, tweet);
+    res.status(201).send("Ok");
   }
 });
 
 app.get("/tweets", (req, res) => {
-  const page = parseInt(req.query.page)
-  if(page === 1){
-    res.send(tweets.slice(0, 10))
-  }
-  else{
-    res.send(tweets.slice((page-1)*10, page*10))
+  const page = parseInt(req.query.page);
+  if (page === 1) {
+    res.send(tweets.slice(0, 10));
+  } else {
+    res.send(tweets.slice((page - 1) * 10, page * 10));
   }
 });
 
 app.get("/tweets/:USERNAME", (req, res) => {
-  res.send(tweets.filter( userTweets => userTweets.username === req.params.USERNAME))
-})
-
-app.listen(5000, () => {
-  console.log("Rodando em http://localhost:5000");
+  res.send(
+    tweets.filter((userTweets) => userTweets.username === req.params.USERNAME)
+  );
 });
+
+app.listen(5000);
