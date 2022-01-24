@@ -39,18 +39,25 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-  let lastTweets = [];
-  if (tweets.length < 10) {
-    for (let tweet of tweets) {
-      lastTweets.push(tweet);
-    }
-  } else {
-    for (let i = 0; i < 10; i++) {
-      lastTweets.push(tweets[i]);
-    }
+  const page = parseInt(req.query.page)
+  if(page === 1){
+    res.send(tweets.slice(0, 10))
   }
+  else{
+    res.send(tweets.slice((page-1)*10, page*10))
+  }
+  // let lastTweets = [];
+  // if (tweets.length < 10) {
+  //   for (let tweet of tweets) {
+  //     lastTweets.push(tweet);
+  //   }
+  // } else {
+  //   for (let i = 0; i < 10; i++) {
+  //     lastTweets.push(tweets[i]);
+  //   }
+  // }
 
-  res.send(lastTweets);
+  // res.send(lastTweets);
 });
 
 app.get("/tweets/:USERNAME", (req, res) => {
