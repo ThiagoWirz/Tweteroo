@@ -7,7 +7,6 @@ app.use(cors());
 
 let users = [];
 let tweets = [];
-let currentUser;
 
 app.post("/sign-up", (req, res) => {
   if (
@@ -18,7 +17,6 @@ app.post("/sign-up", (req, res) => {
   ) {
     res.status(400).send("Todos os campos são obrigatórios!");
   } else {
-    currentUser = req.body;
     users.push(req.body);
     res.status(201).send("Ok");
   }
@@ -29,9 +27,10 @@ app.post("/tweets", (req, res) => {
   if(!tweetUser || tweetUser === "" || !req.body.tweet || req.body.tweet === ""){
     res.status(400).send("Todos os campos são obrigatórios!");
   } else{
+    let tweetAvatar = users.find(u => u.username === tweetUser).avatar
     let tweet = {
     username: tweetUser,
-    avatar: currentUser.avatar,
+    avatar: tweetAvatar,
     tweet: req.body.tweet,
   };
   tweets.splice(0, 0, tweet);
@@ -47,18 +46,6 @@ app.get("/tweets", (req, res) => {
   else{
     res.send(tweets.slice((page-1)*10, page*10))
   }
-  // let lastTweets = [];
-  // if (tweets.length < 10) {
-  //   for (let tweet of tweets) {
-  //     lastTweets.push(tweet);
-  //   }
-  // } else {
-  //   for (let i = 0; i < 10; i++) {
-  //     lastTweets.push(tweets[i]);
-  //   }
-  // }
-
-  // res.send(lastTweets);
 });
 
 app.get("/tweets/:USERNAME", (req, res) => {
