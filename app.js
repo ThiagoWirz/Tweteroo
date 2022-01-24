@@ -25,11 +25,12 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  if(!req.body.username || req.body.username === "" || !req.body.tweet || req.body.tweet === ""){
+  const tweetUser = req.header("User")
+  if(!tweetUser || tweetUser === "" || !req.body.tweet || req.body.tweet === ""){
     res.status(400).send("Todos os campos são obrigatórios!");
   } else{
     let tweet = {
-    username: req.body.username,
+    username: tweetUser,
     avatar: currentUser.avatar,
     tweet: req.body.tweet,
   };
