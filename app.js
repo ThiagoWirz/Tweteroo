@@ -11,9 +11,7 @@ let tweets = [];
 app.post("/sign-up", (req, res) => {
   if (
     !req.body.username ||
-    req.body.username === "" ||
-    !req.body.avatar ||
-    req.body.avatar === ""
+    !req.body.avatar 
   ) {
     res.status(400).send("Todos os campos são obrigatórios!");
   } else if (users.find((u) => u.username === req.body.username)) {
@@ -28,9 +26,7 @@ app.post("/tweets", (req, res) => {
   const tweetUser = req.header("User");
   if (
     !tweetUser ||
-    tweetUser === "" ||
-    !req.body.tweet ||
-    req.body.tweet === ""
+    !req.body.tweet
   ) {
     res.status(400).send("Todos os campos são obrigatórios!");
   } else {
